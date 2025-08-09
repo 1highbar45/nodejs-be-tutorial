@@ -2,11 +2,15 @@ require('dotenv').config();
 const express = require('express');
 const connection = require('./config/database');
 const apiRoutes = require('./routes/api')
-// const User = require('./models/user');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 const port = process.env.PORT;
 const hostname = process.env.HOST_NAME;
+
+//config file upload
+app.use(fileUpload());
+
 
 //config req.body
 app.use(express.json())
@@ -14,8 +18,6 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/v1/api/', apiRoutes);
 
-
-// User.create({ name: 'A', email: 'b', city: 'c' });
 
 (async () => {
     //test connection
